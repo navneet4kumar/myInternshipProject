@@ -1,0 +1,83 @@
+# Initialize an empty list to store tasks
+tasks = []
+
+# Function to add a task to the to-do list
+def add_task():
+    task = input("Enter a new task: ")
+    tasks.append({"task": task, "completed": False})
+    print(f"Task '{task}' has been added to the to-do list.")
+
+# Function to display the to-do list
+def show_tasks():
+    if not tasks:
+        print("Your to-do list is empty.")
+    else:
+        print("To-Do List:")
+        for i, task in enumerate(tasks, start=1):
+            status = " [X]" if task["completed"] else " [ ]"
+            print(f"{i}.{status} {task['task']}")
+
+# Function to mark a task as completed
+def complete_task():
+    show_tasks()
+    if not tasks:
+        return
+    task_number = int(input("Enter the task number to mark as completed: "))
+    if 1 <= task_number <= len(tasks):
+        task = tasks[task_number - 1]
+        task["completed"] = True
+        print(f"Task '{task['task']}' has been marked as completed.")
+    else:
+        print("Invalid task number. Please try again.")
+
+# Function to update a task
+def update_task():
+    show_tasks()
+    if not tasks:
+        return
+    task_number = int(input("Enter the task number to update: "))
+    if 1 <= task_number <= len(tasks):
+        new_task = input("Enter the updated task: ")
+        tasks[task_number - 1]["task"] = new_task
+        print("Task updated successfully.")
+    else:
+        print("Invalid task number. Please try again.")
+
+# Function to remove a task from the to-do list
+def remove_task():
+    show_tasks()
+    if not tasks:
+        return
+    task_number = int(input("Enter the task number to remove: "))
+    if 1 <= task_number <= len(tasks):
+        removed_task = tasks.pop(task_number - 1)
+        print(f"Task '{removed_task['task']}' has been removed from the to-do list.")
+    else:
+        print("Invalid task number. Please try again.")
+
+# Main program loop
+while True:
+    print("\nOptions:")
+    print("1. Add Task")
+    print("2. Display Tasks")
+    print("3. Complete Task")
+    print("4. Update Task")
+    print("5. Remove Task")
+    print("6. Quit")
+    choice = input("Enter your choice (1/2/3/4/5/6): ")
+
+    if choice == '1':
+        add_task()
+    elif choice == '2':
+        show_tasks()
+    elif choice == '3':
+        complete_task()
+    elif choice == '4':
+        update_task()
+    elif choice == '5':
+        remove_task()
+    elif choice == '6':
+        print("Goodbye!")
+        break
+    else:
+        print("Invalid choice. Please try again.")
